@@ -41,7 +41,18 @@ public class Jogo {
                 opcaoJogador.opcao = !opcaoJogador.opcao;
             }
         }
+        printaTabuleiro(tabuleiro);
         return tabuleiro;
+    }
+
+    public static void printaTabuleiro(char[][] tabuleiro){
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                System.out.print(tabuleiro[i][j]);
+            }
+            System.out.println();
+        }
+
     }
 
 }
