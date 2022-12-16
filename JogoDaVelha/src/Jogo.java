@@ -3,9 +3,13 @@ import java.util.Arrays;
 public class Jogo {
     public static void main(String[] args) {
         char[][] tabuleiro = new char[3][3];
+
+        tabuleiro = preencheTabuleiro(tabuleiro);
+
+        //System.out.println(Arrays.deepToString(tabuleiro));
     }
 
-    public static void preencheTabuleiro(char[][] tabuleiro){
+    public static char[][] preencheTabuleiro(char[][] tabuleiro){
 
         for (int i = 0; i < tabuleiro.length; i++) {
             for (int j = 0; j < tabuleiro[0].length; j++) {
@@ -14,6 +18,7 @@ public class Jogo {
             }
             System.out.println();
         }
+        return tabuleiro;
     }
 
 }
