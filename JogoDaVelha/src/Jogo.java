@@ -3,13 +3,12 @@ import java.util.Arrays;
 public class Jogo {
     public static void main(String[] args) {
         char[][] tabuleiro = new char[3][3];
-
+        boolean opcao;
         tabuleiro = preencheTabuleiro(tabuleiro);
 
-        //System.out.println(Arrays.deepToString(tabuleiro));
     }
 
-    public static char[][] preencheTabuleiro(char[][] tabuleiro){
+    public static char[][] preencheTabuleiro(char[][] tabuleiro) {
 
         for (int i = 0; i < tabuleiro.length; i++) {
             for (int j = 0; j < tabuleiro[0].length; j++) {
@@ -21,4 +20,32 @@ public class Jogo {
         return tabuleiro;
     }
 
+    public static char[][] preencherPosicao(char[][] tabuleiro, int linha, int coluna) {
+
+        boolean podePreencher = false;
+
+        if (linha < 0 || linha > 2 || coluna < 0 || coluna > 2) {
+            System.out.println("POSIÇÃO INEXISTENTE!");
+        } else if (tabuleiro[linha][coluna] != '_') {
+            System.out.println("POSIÇÃO JÁ PREENCHIDA!");
+        } else {
+            podePreencher = true;
+        }
+
+        if (podePreencher) {
+            if(opcaoJogador.opcao == false){
+                tabuleiro[linha][coluna] = 'X';
+                opcaoJogador.opcao = !opcaoJogador.opcao;
+            }else{
+                tabuleiro[linha][coluna] = 'O';
+                opcaoJogador.opcao = !opcaoJogador.opcao;
+            }
+        }
+        return tabuleiro;
+    }
+
+}
+
+class opcaoJogador{
+    public static boolean opcao;
 }
