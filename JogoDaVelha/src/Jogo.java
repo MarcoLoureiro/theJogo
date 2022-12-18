@@ -1,10 +1,9 @@
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 public class Jogo {
     public static void main(String[] args) {
-        char[][] tabuleiro = new char[3][3];
-        tabuleiro = preencheTabuleiro(tabuleiro);
-
+        jogarTheJogo();
     }
 
     public static char[][] preencheTabuleiro(char[][] tabuleiro) {
@@ -32,19 +31,20 @@ public class Jogo {
         }
 
         if (podePreencher) {
-            if(opcaoJogador.opcao == false){
+            if (opcaoJogador.opcao == false) {
                 tabuleiro[linha][coluna] = 'X';
                 opcaoJogador.opcao = !opcaoJogador.opcao;
-            }else{
+            } else {
                 tabuleiro[linha][coluna] = 'O';
                 opcaoJogador.opcao = !opcaoJogador.opcao;
             }
+            opcaoJogador.contadorJogadas++;
         }
         printaTabuleiro(tabuleiro);
         return tabuleiro;
     }
 
-    public static void printaTabuleiro(char[][] tabuleiro){
+    public static void printaTabuleiro(char[][] tabuleiro) {
         for (int i = 0; i < tabuleiro.length; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
                 System.out.print(tabuleiro[i][j]);
@@ -60,37 +60,63 @@ public class Jogo {
             for (int j = 0; j < tabuleiro[i].length; j++) {
                 if (tabuleiro[i][0] == 'X' && tabuleiro[i][1] == 'X' && tabuleiro[i][2] == 'X') {
                     System.out.println("Jogador X GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 } else if (tabuleiro[0][j] == 'X' && tabuleiro[1][j] == 'X' && tabuleiro[2][j] == 'X') {
                     System.out.println("Jogador X GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 } else if ((tabuleiro[0][0] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][2] == 'X' ||
                         tabuleiro[0][2] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[0][0] == 'X')) {
                     System.out.println("Jogador X GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 } else if (tabuleiro[i][0] == 'O' && tabuleiro[i][1] == 'O' && tabuleiro[i][2] == 'O') {
                     System.out.println("Jogador O GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 } else if (tabuleiro[0][j] == 'O' && tabuleiro[1][j] == 'O' && tabuleiro[2][j] == 'O') {
                     System.out.println("Jogador O GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 } else if (tabuleiro[0][0] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][2] == 'O' ||
                         tabuleiro[0][2] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[0][0] == 'O') {
                     System.out.println("Jogador O GANHOU!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
-                } else {
+                } else if(opcaoJogador.contadorJogadas > 8){
                     System.out.println("DEU VELHA!");
+                    opcaoJogador.fim = true;
                     break VerificarFimOuVelha;
                 }
-
             }
         }
-        opcaoJogador.fim = true;
+
     }
 
+    public static void jogarTheJogo() {
+        char[][] tabuleiro = new char[3][3];
+        tabuleiro = preencheTabuleiro(tabuleiro);
+
+        do {
+            String txt = JOptionPane.showInputDialog(
+                    null, "Digite a posição para ser marcada (Ex: 1 1 para marcar X na linha 1 e coluna 1)");
+            String[] splitado = txt.split(" ");
+
+            if (splitado[0].matches("[0-9]*") && splitado[1].matches("[0-9]*")) {
+                int linha = Integer.parseInt(splitado[0]) - 1;
+                int coluna = Integer.parseInt(splitado[1]) - 1;
+                preencherPosicao(tabuleiro, linha, coluna);
+                verificaVelhaOuFim(tabuleiro);
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite um valor válido!");
+            }
+        } while (opcaoJogador.fim != true);
+    }
 }
 
 class opcaoJogador {
     public static boolean opcao;
     public static boolean fim = false;
+    public static int contadorJogadas = 0;
 }
