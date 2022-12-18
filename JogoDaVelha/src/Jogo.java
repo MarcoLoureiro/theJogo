@@ -3,7 +3,6 @@ import java.util.Arrays;
 public class Jogo {
     public static void main(String[] args) {
         char[][] tabuleiro = new char[3][3];
-        boolean opcao;
         tabuleiro = preencheTabuleiro(tabuleiro);
 
     }
@@ -55,8 +54,43 @@ public class Jogo {
 
     }
 
+    public static void verificaVelhaOuFim(char[][] tabuleiro) {
+        VerificarFimOuVelha:
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                if (tabuleiro[i][0] == 'X' && tabuleiro[i][1] == 'X' && tabuleiro[i][2] == 'X') {
+                    System.out.println("Jogador X GANHOU!");
+                    break VerificarFimOuVelha;
+                } else if (tabuleiro[0][j] == 'X' && tabuleiro[1][j] == 'X' && tabuleiro[2][j] == 'X') {
+                    System.out.println("Jogador X GANHOU!");
+                    break VerificarFimOuVelha;
+                } else if ((tabuleiro[0][0] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][2] == 'X' ||
+                        tabuleiro[0][2] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[0][0] == 'X')) {
+                    System.out.println("Jogador X GANHOU!");
+                    break VerificarFimOuVelha;
+                } else if (tabuleiro[i][0] == 'O' && tabuleiro[i][1] == 'O' && tabuleiro[i][2] == 'O') {
+                    System.out.println("Jogador O GANHOU!");
+                    break VerificarFimOuVelha;
+                } else if (tabuleiro[0][j] == 'O' && tabuleiro[1][j] == 'O' && tabuleiro[2][j] == 'O') {
+                    System.out.println("Jogador O GANHOU!");
+                    break VerificarFimOuVelha;
+                } else if (tabuleiro[0][0] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][2] == 'O' ||
+                        tabuleiro[0][2] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[0][0] == 'O') {
+                    System.out.println("Jogador O GANHOU!");
+                    break VerificarFimOuVelha;
+                } else {
+                    System.out.println("DEU VELHA!");
+                    break VerificarFimOuVelha;
+                }
+
+            }
+        }
+        opcaoJogador.fim = true;
+    }
+
 }
 
-class opcaoJogador{
+class opcaoJogador {
     public static boolean opcao;
+    public static boolean fim = false;
 }
