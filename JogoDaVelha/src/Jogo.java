@@ -102,15 +102,23 @@ public class Jogo {
             String txt = JOptionPane.showInputDialog(
                     null, "Digite a posição para ser marcada (Ex: 11 para marcar X na linha 1 e coluna 1)\nDigite Sair para fechar");
 
-            if(txt != null && txt.equals("Sair")) {
+            if (txt != null && txt.equals("Sair")) {
                 opcaoJogador.fim = true;
                 txt = null;
             }
 
             if (txt != null && txt.length() > 0) {
                 String[] splitado = txt.split("");
+                boolean isLinha=false;
+                boolean isColuna=false;
 
-                if (splitado[0].matches("[0-9]*") && splitado[1].matches("[0-9]*")) {
+                if(splitado.length>1){
+                    isLinha = splitado[0].matches("[0-9]*");
+                    isColuna = splitado[1].matches("[0-9]*");
+                }else{
+                    isLinha = splitado[0].matches("[0-9]*");
+                }
+                if (isLinha && isColuna && txt.length()>1 && txt.length()<3) {
                     int linha = Integer.parseInt(splitado[0]) - 1;
                     int coluna = Integer.parseInt(splitado[1]) - 1;
                     preencherPosicao(tabuleiro, linha, coluna);
